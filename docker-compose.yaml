@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  next:
+    build:
+      context: .
+      target: runner
+    container_name: next
+    restart: unless-stopped
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+      - ./data:/data/db
+    ports:
+      - 27017:27017
