@@ -1,4 +1,4 @@
-import Product from "@/models/product";
+import Product, { IProduct } from "@/models/product";
 import { connectMongo } from "@/utils/connectMongo";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -9,13 +9,12 @@ export default async function handler(
 	if (req.method === "GET") {
 		try {
 			await connectMongo();
-			const product = await Product.findById(req.query.id).exec();
+			const product = await getProduct(req.query.id);
 			res.json(product);
 		} catch (error) {
 			res.json(error);
 		}
 	}
-	if (req.method === "POST") res.json(req.body);
 	if (req.method === "PATCH") {
 		try {
 			await connectMongo();
@@ -23,10 +22,24 @@ export default async function handler(
 				upsert: true,
 				new: true,
 			});
-			console.log(product);
 			res.json(product);
 		} catch (error) {
 			res.json(error);
 		}
 	}
+	if (req.method === "DELETE") {
+		try {
+			await connectMongo();
+			await Product.findByIdAndDelete(req.query.id);
+			res.status(204).send("");
+		} catch (error) {
+			res.json(error);
+		}
+	}
 }
+
+export const getProduct = async (
+	id: string | string[] | undefined
+): Promise<IProduct> => {
+	return await Product.findById(id).exec();
+};
