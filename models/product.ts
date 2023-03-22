@@ -5,10 +5,7 @@ export interface IProduct {
 	price: Number;
 	description: String;
 	category: String;
-	image?: {
-		data: Buffer;
-		contentType: String;
-	};
+	image?: String;
 	rating?: {
 		rate: Number;
 		count: Number;
@@ -32,10 +29,7 @@ export const productSchema = new Schema<IProduct>({
 		type: String,
 		required: true,
 	},
-	image: {
-		data: Buffer,
-		contentType: String,
-	},
+	image: String,
 	rating: {
 		rate: Number,
 		count: Number,

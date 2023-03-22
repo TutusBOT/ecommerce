@@ -1,13 +1,14 @@
 import Product from "@/models/product";
+import base64ToFile from "@/utils/base64ToFile";
 import { connectMongo } from "@/utils/connectMongo";
 import { getSession } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export const config = {
-	api: {
-		bodyParse: false,
-	},
-};
+// export const config = {
+// 	api: {
+// 		bodyParse: false,
+// 	},
+// };
 
 export default async function handler(
 	req: NextApiRequest,
@@ -32,7 +33,16 @@ export default async function handler(
 		// 	});
 		try {
 			await connectMongo();
-			const product = await Product.create(req.body);
+			// const image = Buffer.from(req.body.image.split(",")[1], "base64");
+			const imagePath = base64ToFile({
+				base64: req.body.image,
+				path: "products/",
+				name: req.body.title,
+			});
+			const product = await Product.create({
+				...req.body,
+				image: imagePath,
+			});
 			res.json({ product });
 		} catch (error) {
 			res.json({ error });
