@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { getProduct } from "../api/products/[id]";
 import { IProduct } from "@/models/product";
 import Head from "next/head";
+import Image from "next/image";
 
 const Product = ({ product }: { product: IProduct }) => {
 	return (
@@ -15,7 +16,7 @@ const Product = ({ product }: { product: IProduct }) => {
 			<main>
 				<div className="grid grid-cols-2">
 					<div>
-						<img src=""></img>
+						<Image src={product.image ?? ""} alt={product.title} />
 					</div>
 					<div>
 						<h2>{product.title}</h2>
