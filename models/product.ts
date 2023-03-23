@@ -1,14 +1,14 @@
 import { Schema, model, models } from "mongoose";
 
 export interface IProduct {
-	title: String;
-	price: Number;
-	description: String;
-	category: String;
-	image?: String;
+	title: string;
+	price: number;
+	description: string;
+	category: string;
+	image?: string;
 	rating?: {
-		rate: Number;
-		count: Number;
+		rate: number;
+		count: number;
 	};
 }
 
