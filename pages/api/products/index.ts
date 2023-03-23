@@ -4,12 +4,6 @@ import { connectMongo } from "@/utils/connectMongo";
 import { getSession } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// export const config = {
-// 	api: {
-// 		bodyParse: false,
-// 	},
-// };
-
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
@@ -33,8 +27,7 @@ export default async function handler(
 		// 	});
 		try {
 			await connectMongo();
-			// const image = Buffer.from(req.body.image.split(",")[1], "base64");
-			const imagePath = base64ToFile({
+			const imagePath = await base64ToFile({
 				base64: req.body.image,
 				path: "products/",
 				name: req.body.title,
