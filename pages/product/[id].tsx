@@ -3,8 +3,11 @@ import { getProduct } from "../api/products/[id]";
 import { IProduct } from "@/models/product";
 import Head from "next/head";
 import Image from "next/image";
+import { useAppStore } from "@/store";
 
-const Product = ({ product }: { product: IProduct }) => {
+const Product = ({ product }: { product: IProduct | null }) => {
+	const state = useAppStore((state) => state);
+	if (!product) return <>Product not found</>;
 	return (
 		<>
 			<Head>
@@ -15,14 +18,26 @@ const Product = ({ product }: { product: IProduct }) => {
 			</Head>
 			<main>
 				<div className="grid grid-cols-2">
-					<div>
-						<Image src={product.image ?? ""} alt={product.title} />
+					<div className="relative">
+						<Image
+							src={product.image ?? ""}
+							alt={product.title}
+							fill
+							className="object-contain"
+						/>
 					</div>
 					<div>
-						<h2>{product.title}</h2>
+						<h2 className="text-4xl">{product.title}</h2>
 						<p>{product.description}</p>
 						<p>{product.price.toString()}zł</p>
 						<p>{product.rating?.rate.toString()}</p>
+						<button
+							onClick={() => {
+								state.addToCart({ item: product });
+							}}
+						>
+							add to cart
+						</button>
 					</div>
 				</div>
 			</main>
@@ -33,8 +48,14 @@ export default Product;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	const { id } = ctx.query;
-	const product = JSON.parse(JSON.stringify(await getProduct(id)));
-	return {
-		props: { product },
-	};
+	try {
+		const product = JSON.parse(JSON.stringify(await getProduct(id)));
+		return {
+			props: { product },
+		};
+	} catch (error) {
+		return {
+			props: { product: null },
+		};
+	}
 };
