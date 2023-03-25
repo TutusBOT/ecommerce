@@ -15,10 +15,10 @@ export default async function base64ToFile({
 
 	try {
 		await fsp.mkdir(`./public/${path}`, { recursive: true });
-		const filePath = `./public/${path + Date.now().toString() + name}`;
+		const filePath = `./public/${path + Date.now().toString() + name}.png`;
 		const buffer = Buffer.from(fileContents, "base64");
-		await fsp.writeFile(filePath + ".png", buffer);
-		return filePath;
+		await fsp.writeFile(filePath, buffer);
+		return filePath.replace("./public", "");
 	} catch (error) {
 		return console.error(error);
 	}
