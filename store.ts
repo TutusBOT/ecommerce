@@ -1,35 +1,63 @@
 import { create } from "zustand";
-import { IProduct } from "./models/product";
+import { devtools } from "zustand/middleware";
+import { Product } from "./models/product";
 
 interface AppState {
 	cart: Array<{
-		item: IProduct;
+		item: Product;
 		count: number;
 	}>;
-	addToCart: ({ item }: { item: IProduct }) => void;
-	removeFromCart: ({ item }: { item: IProduct }) => void;
 }
 
-export const useAppStore = create<AppState>((set) => ({
-	cart: [],
-	addToCart: ({ item }) =>
-		set((state) => {
-			let itemIndex = null;
-			for (let i = 0; i < state.cart.length; i++) {
-				if (state.cart[i].item._id === item._id) itemIndex = i;
-			}
-			if (itemIndex === null)
-				return { ...state, cart: [...state.cart, { item, count: 1 }] };
-			const updatedCart = [...state.cart];
-			updatedCart[itemIndex] = {
-				item,
-				count: updatedCart[itemIndex].count + 1,
-			};
-			return { ...state, cart: updatedCart };
-		}),
-	removeFromCart: ({ item }) =>
-		set((state) => ({
-			cart: state.cart.filter((i) => i.item._id !== item._id),
-		})),
-	resetCart: () => set(() => ({ cart: [] })),
-}));
+interface AppActions {
+	addToCart: (product: Product) => void;
+	removeFromCart: (productId: string) => void;
+	updateItemQuantity: (productId: string, quantity: number) => void;
+	clearCart: () => void;
+}
+
+export const useAppStore = create<AppState & AppActions>()(
+	devtools((set) => ({
+		cart: [],
+		addToCart: (product) =>
+			set((state) => {
+				const itemInCart = state.cart.find(
+					(item) => item.item._id === product._id
+				);
+				if (itemInCart) {
+					return {
+						cart: state.cart.map((item) => {
+							if (item.item._id === product._id)
+								return { ...item, count: item.count + 1 };
+							return item;
+						}),
+					};
+				}
+				return { cart: [...state.cart, { item: product, count: 1 }] };
+			}),
+		removeFromCart: (productId) =>
+			set((state) => ({
+				cart: state.cart.filter((i) => i.item._id !== productId),
+			})),
+		updateItemQuantity: (productId: string, quantity: number) =>
+			set((state) => {
+				const itemInCart = state.cart.find(
+					(item) => item.item._id === productId
+				);
+
+				if (itemInCart) {
+					return {
+						cart: state.cart.map((item) => {
+							if (item.item._id === productId) {
+								return { ...item, count: quantity };
+							}
+							return item;
+						}),
+					};
+				}
+
+				return state;
+			}),
+		clearCart: () => set(() => ({ cart: [] })),
+	}))
+);
