@@ -1,14 +1,14 @@
-import Product, { IProduct } from "@/models/product";
-import { connectMongo } from "@/utils/connectMongo";
+import Product, { Product as ProductInteface } from "@/models/product";
+import { connectMongo } from "@/lib/connectMongo";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
+	await connectMongo();
 	if (req.method === "GET") {
 		try {
-			await connectMongo();
 			const product = await getProduct(req.query.id);
 			res.json(product);
 		} catch (error) {
@@ -17,7 +17,6 @@ export default async function handler(
 	}
 	if (req.method === "PATCH") {
 		try {
-			await connectMongo();
 			const product = await Product.findByIdAndUpdate(req.query.id, req.body, {
 				upsert: true,
 				new: true,
@@ -29,7 +28,6 @@ export default async function handler(
 	}
 	if (req.method === "DELETE") {
 		try {
-			await connectMongo();
 			await Product.findByIdAndDelete(req.query.id);
 			res.status(204).send("");
 		} catch (error) {
@@ -40,6 +38,7 @@ export default async function handler(
 
 export const getProduct = async (
 	id: string | string[] | undefined
-): Promise<IProduct> => {
+): Promise<ProductInteface> => {
+	await connectMongo();
 	return await Product.findById(id).exec();
 };
