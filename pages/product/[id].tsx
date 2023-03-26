@@ -1,11 +1,11 @@
 import { GetServerSideProps } from "next";
 import { getProduct } from "../api/products/[id]";
-import { IProduct } from "@/models/product";
+import { Product } from "@/models/product";
 import Head from "next/head";
 import Image from "next/image";
 import { useAppStore } from "@/store";
 
-const Product = ({ product }: { product: IProduct | null }) => {
+const Product = ({ product }: { product: Product | null }) => {
 	const state = useAppStore((state) => state);
 	if (!product) return <>Product not found</>;
 	return (
@@ -33,7 +33,7 @@ const Product = ({ product }: { product: IProduct | null }) => {
 						<p>{product.rating?.rate.toString()}</p>
 						<button
 							onClick={() => {
-								state.addToCart({ item: product });
+								state.addToCart(product);
 							}}
 						>
 							add to cart
