@@ -1,6 +1,6 @@
 import Product from "@/models/product";
 import base64ToFile from "@/utils/base64ToFile";
-import { connectMongo } from "@/utils/connectMongo";
+import { connectMongo } from "@/lib/connectMongo";
 import { getSession } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
 
