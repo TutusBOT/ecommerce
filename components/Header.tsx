@@ -5,7 +5,7 @@ const Navbar = () => {
 	return (
 		<header>
 			<nav>
-				<ul className="flex justify-end shadow-md py-2 px-4 gap-4">
+				<ul className="flex justify-end shadow-md py-2 px-4 gap-4 text-xl">
 					<li>
 						<Cart />
 					</li>
