@@ -1,5 +1,5 @@
 import User from "@/models/user";
-import { connectMongo } from "@/utils/connectMongo";
+import { connectMongo } from "@/lib/connectMongo";
 import { getSession, withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
 

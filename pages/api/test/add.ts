@@ -1,4 +1,4 @@
-import { connectMongo } from "@/utils/connectMongo";
+import { connectMongo } from "@/lib/connectMongo";
 import Test from "@/models/testModel";
 
 export default async function addTest(req: any, res: any) {
