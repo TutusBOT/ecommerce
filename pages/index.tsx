@@ -1,10 +1,19 @@
 import Head from "next/head";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import SignIn from "@/components/SignIn";
+import { GetServerSideProps } from "next";
+import { getProducts } from "./api/products";
+import { Product } from "@/models/product";
+import ProductPreview from "@/components/ProductPreview";
 
-export default function Home() {
+interface Home {
+	products: Product[] | null;
+	error: unknown;
+}
+
+export default function Home({ products }: Home) {
 	const { user, error, isLoading } = useUser();
 	console.log(user);
+	if (!products) return "Error while fetching products";
 
 	return (
 		<>
@@ -15,8 +24,32 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main>
-				<SignIn />
+				<div className="grid grid-cols-4 items-center justify-items-center gap-4 py-4 px-4">
+					{products.map((product) => (
+						<ProductPreview key={product._id} product={product} />
+					))}
+				</div>
 			</main>
 		</>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+	try {
+		const products = JSON.parse(JSON.stringify(await getProducts(8)));
+		console.log(products);
+
+		return {
+			props: {
+				products,
+			},
+		};
+	} catch (error) {
+		return {
+			props: {
+				products: null,
+				error: JSON.parse(JSON.stringify(error)),
+			},
+		};
+	}
+};
