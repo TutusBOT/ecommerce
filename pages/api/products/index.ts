@@ -9,10 +9,10 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	const session = await getSession(req, res);
+	await connectMongo();
 	if (req.method === "GET") {
 		try {
-			await connectMongo();
-			const products = await Product.find({}).exec();
+			const products = await getProducts(0);
 			res.json(products);
 		} catch (error) {
 			res.json({ error });
@@ -26,7 +26,6 @@ export default async function handler(
 		// 			"The user does not have an active session or is not authenticated",
 		// 	});
 		try {
-			await connectMongo();
 			const imagePath = await base64ToFile({
 				base64: req.body.image,
 				path: "products/",
@@ -42,3 +41,8 @@ export default async function handler(
 		}
 	}
 }
+
+export const getProducts = async (limit: number) => {
+	await connectMongo();
+	return await Product.find({}).limit(limit).exec();
+};
