@@ -11,7 +11,7 @@ const Cart = () => {
 		<>
 			<div className="flex justify-between items-center">
 				<h2 className="text-2xl">Cart</h2>
-				<IconButton onClick={() => clearCart}>
+				<IconButton onClick={() => clearCart()}>
 					Clear cart <MdDeleteOutline />
 				</IconButton>
 			</div>
