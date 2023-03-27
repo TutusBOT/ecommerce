@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 		};
 	} catch (error) {
 		return {
-			props: { product: null },
+			props: { product: null, error: JSON.parse(JSON.stringify(error)) },
 		};
 	}
 };
