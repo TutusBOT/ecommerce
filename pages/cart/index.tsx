@@ -9,7 +9,7 @@ const Cart = () => {
 	const clearCart = useAppStore((state) => state.clearCart);
 	return (
 		<>
-			<div className="flex justify-between items-center">
+			<div className="flex items-center justify-between">
 				<h2 className="text-2xl">Cart</h2>
 				<IconButton onClick={() => clearCart()}>
 					Clear cart <MdDeleteOutline />
@@ -28,11 +28,11 @@ const Cart = () => {
 						/>
 					))
 				) : (
-					<div className="w-full flex flex-col justify-center items-center gap-8">
+					<div className="flex w-full flex-col items-center justify-center gap-8">
 						<h3 className="text-3xl">Your cart is empty</h3>
 						<Link
 							href="/"
-							className="bg-blue-600 text-white py-2 px-12 rounded-3xl transition-colors hover:bg-blue-700"
+							className="rounded-3xl bg-blue-600 py-2 px-12 text-white transition-colors hover:bg-blue-700"
 						>
 							Go to homepage
 						</Link>

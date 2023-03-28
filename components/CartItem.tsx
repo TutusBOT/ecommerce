@@ -25,13 +25,13 @@ const CartItem = ({ id, image, title, price, count }: CartItem) => {
 	};
 
 	return (
-		<div className="w-full flex gap-4 items-center px-4 py-2 border-[1px] border-gray-400 rounded-md">
+		<div className="flex w-full items-center gap-4 rounded-md border-[1px] border-gray-400 px-4 py-2">
 			<Link href={`/product/${id}`} className="flex items-center">
 				<Image src={image} alt={title} width={80} height={80} />
 				<p>{title}</p>
 			</Link>
 			<p>{price}</p>
-			<p className="flex gap-2 items-center">
+			<p className="flex items-center gap-2">
 				<IconButton onClick={handleRemove}>
 					<MdRemoveCircleOutline />
 				</IconButton>{" "}

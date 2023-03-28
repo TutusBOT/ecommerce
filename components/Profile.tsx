@@ -5,7 +5,7 @@ const Profile = () => {
 	return (
 		<div className="group relative">
 			<div>Your account</div>
-			<div className="hidden group-hover:block absolute w-full bg-white">
+			<div className="absolute hidden w-full bg-white group-hover:block">
 				<SignIn />
 			</div>
 		</div>

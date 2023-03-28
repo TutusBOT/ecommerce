@@ -7,7 +7,7 @@ const Cart = () => {
 		<div className="group relative">
 			<Link href="/cart">
 				<div>Cart</div>
-				<div className="hidden group-hover:block absolute">
+				<div className="absolute hidden group-hover:block">
 					{cart.length ? "Check cart" : "Cart is empty"}
 				</div>
 			</Link>
