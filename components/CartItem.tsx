@@ -25,7 +25,7 @@ const CartItem = ({ id, image, title, price, count }: CartItem) => {
 	};
 
 	return (
-		<div className="flex w-full items-center gap-4 rounded-md border-[1px] border-gray-400 px-4 py-2">
+		<div className="flex w-full items-center gap-4 rounded-md border border-gray-400 px-4 py-2">
 			<Link href={`/product/${id}`} className="flex items-center">
 				<Image src={image} alt={title} width={80} height={80} />
 				<p>{title}</p>

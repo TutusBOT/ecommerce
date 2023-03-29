@@ -13,7 +13,7 @@ const ProductPreview = ({ product }: ProductPreview) => {
 	const addToCart = useAppStore((state) => state.addToCart);
 
 	return (
-		<div className="group w-full rounded-lg border-[1px] border-transparent transition-colors hover:border-gray-200 hover:shadow-lg">
+		<div className="group w-full rounded-lg border border-transparent transition-colors hover:border-gray-200 hover:shadow-lg">
 			<Link
 				href={`/product/${product._id}`}
 				className="flex flex-col px-4 py-2"
