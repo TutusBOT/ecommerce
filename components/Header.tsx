@@ -5,9 +5,9 @@ import SearchBar from "./SearchBar";
 
 const Navbar = () => {
 	return (
-		<header>
-			<nav>
-				<ul className="flex justify-end gap-4 py-2 px-4 text-xl shadow-md">
+		<header className="flex flex-col">
+			<nav className="w-full">
+				<ul className="flex items-center justify-end gap-4 py-2 px-4 text-xl shadow-md">
 					<li>
 						<Link href="/">Home</Link>
 					</li>
@@ -22,6 +22,12 @@ const Navbar = () => {
 					</li>
 				</ul>
 			</nav>
+			<div className="w-full">
+				<ul className="flex gap-4">
+					<li>Laptops</li>
+					<li>Smartphones</li>
+				</ul>
+			</div>
 		</header>
 	);
 };
