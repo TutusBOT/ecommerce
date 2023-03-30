@@ -1,11 +1,11 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, Types, model, models } from "mongoose";
 
 export interface Product {
 	_id: string;
 	title: string;
 	price: number;
 	description: string;
-	category: string;
+	category: Types.ObjectId;
 	image?: string;
 	rating?: {
 		rate: number;
@@ -27,7 +27,8 @@ export const productSchema = new Schema<Product>({
 		required: true,
 	},
 	category: {
-		type: String,
+		type: Schema.Types.ObjectId,
+		ref: "Category",
 		required: true,
 	},
 	image: String,
