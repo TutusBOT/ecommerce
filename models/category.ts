@@ -1,11 +1,14 @@
 import { model, models, Schema } from "mongoose";
+import z from "zod";
 
-export interface Category {
-	name: string;
-	slug: string;
-}
+export type Category = z.infer<typeof categorySchema>;
 
-export const categorySchema = new Schema<Category>({
+export const categorySchema = z.object({
+	name: z.string(),
+	slug: z.string(),
+});
+
+const schema = new Schema<Category>({
 	name: {
 		type: String,
 		required: true,
@@ -16,6 +19,6 @@ export const categorySchema = new Schema<Category>({
 	},
 });
 
-const Category = models.Category || model("Category", categorySchema);
+const Category = models.Category || model("Category", schema);
 
 export default Category;

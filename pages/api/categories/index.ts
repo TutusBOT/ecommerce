@@ -1,6 +1,7 @@
-import Category from "@/models/category";
+import Category, { categorySchema } from "@/models/category";
 import { connectMongo } from "@/lib/connectMongo";
 import { NextApiRequest, NextApiResponse } from "next";
+import { ZodError } from "zod";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -17,10 +18,14 @@ export default async function handler(
 	}
 	if (req.method === "POST") {
 		try {
-			const category = await Category.create(req.body);
+			const categoryPayload = categorySchema.parse(req.body);
+			const category = await Category.create(categoryPayload);
 			res.json(category);
 		} catch (error) {
-			res.json({ error });
+			if (error instanceof ZodError) res.status(400).json({ error });
+			else {
+				res.json({ error });
+			}
 		}
 	}
 }

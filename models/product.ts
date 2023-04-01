@@ -1,19 +1,24 @@
-import { Schema, Types, model, models } from "mongoose";
+import mongoose, { Schema, Types, model, models, ObjectId } from "mongoose";
+import z from "zod";
 
-export interface Product {
-	_id: string;
-	title: string;
-	price: number;
-	description: string;
-	category: Types.ObjectId;
-	image?: string;
-	rating?: {
-		rate: number;
-		count: number;
-	};
-}
+export type Product = z.infer<typeof productSchema>;
 
-export const productSchema = new Schema<Product>({
+export const productSchema = z.object({
+	_id: z.string(),
+	title: z.string(),
+	price: z.number(),
+	description: z.string(),
+	category: z.instanceof(Object).transform((id) => id.toString()),
+	image: z.string().optional(),
+	rating: z
+		.object({
+			rate: z.number(),
+			count: z.number(),
+		})
+		.optional(),
+});
+
+const schema = new Schema({
 	title: {
 		type: String,
 		required: true,
@@ -27,7 +32,7 @@ export const productSchema = new Schema<Product>({
 		required: true,
 	},
 	category: {
-		type: Schema.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: "Category",
 		required: true,
 	},
@@ -38,6 +43,6 @@ export const productSchema = new Schema<Product>({
 	},
 });
 
-const Product = models.Product || model("Product", productSchema);
+const Product = models.Product || model("Product", schema);
 
 export default Product;
