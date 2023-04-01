@@ -44,5 +44,5 @@ export default async function handler(
 
 export const getProducts = async (limit: number) => {
 	await connectMongo();
-	return await Product.find({}).limit(limit).exec();
+	return await Product.find({}).limit(limit).populate("category").exec();
 };
