@@ -1,3 +1,5 @@
+"use client";
+
 import { useAppStore } from "@/store";
 import Link from "next/link";
 

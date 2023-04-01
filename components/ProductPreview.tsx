@@ -1,3 +1,5 @@
+"use client";
+
 import { Product } from "@/models/product";
 import { useAppStore } from "@/store";
 import Image from "next/image";

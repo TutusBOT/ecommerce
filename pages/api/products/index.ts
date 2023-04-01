@@ -1,4 +1,4 @@
-import Product from "@/models/product";
+import Product, { Product as IProduct } from "@/models/product";
 import base64ToFile from "@/utils/base64ToFile";
 import { connectMongo } from "@/lib/connectMongo";
 import { getSession } from "@auth0/nextjs-auth0";
@@ -44,5 +44,8 @@ export default async function handler(
 
 export const getProducts = async (limit: number) => {
 	await connectMongo();
-	return await Product.find({}).limit(limit).populate("category").exec();
+	return (await Product.find({})
+		.limit(limit)
+		.populate("category")
+		.exec()) as IProduct[];
 };

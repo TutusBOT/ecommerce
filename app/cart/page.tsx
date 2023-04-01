@@ -1,3 +1,5 @@
+"use client";
+
 import CartItem from "@/components/CartItem";
 import IconButton from "@/components/IconButton";
 import { useAppStore } from "@/store";
