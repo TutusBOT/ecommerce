@@ -1,9 +1,14 @@
+import { Category } from "@/models/category";
 import Link from "next/link";
 import Cart from "./Cart";
 import Profile from "./Profile";
 import SearchBar from "./SearchBar";
 
-const Navbar = () => {
+interface Header {
+	categories: Category[];
+}
+
+const Header = ({ categories }: Header) => {
 	return (
 		<header className="flex flex-col">
 			<nav className="w-full">
@@ -24,11 +29,14 @@ const Navbar = () => {
 			</nav>
 			<div className="w-full">
 				<ul className="flex gap-4">
-					<li>Laptops</li>
-					<li>Smartphones</li>
+					{categories.map((category) => (
+						<li key={category.slug}>
+							<Link href={`/category/${category.slug}`}>{category.name}</Link>
+						</li>
+					))}
 				</ul>
 			</div>
 		</header>
 	);
 };
-export default Navbar;
+export default Header;
