@@ -27,10 +27,13 @@ const Header = ({ categories }: Header) => {
 					</li>
 				</ul>
 			</nav>
-			<div className="w-full">
+			<div className="w-full bg-gray-100 px-4 text-xl shadow-md">
 				<ul className="flex gap-4">
 					{categories.map((category) => (
-						<li key={category.slug}>
+						<li
+							key={category.slug}
+							className="h-full rounded-t-lg py-2 px-4  hover:bg-white hover:shadow-lg"
+						>
 							<Link href={`/category/${category.slug}`}>{category.name}</Link>
 						</li>
 					))}
