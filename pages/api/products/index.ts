@@ -3,6 +3,16 @@ import base64ToFile from "@/utils/base64ToFile";
 import { connectMongo } from "@/lib/connectMongo";
 import { getSession } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
+import z from "zod";
+
+const productQuery = z.object({
+	category: z.string().optional(),
+	limit: z.preprocess((n) => {
+		if (!n) return undefined;
+		return parseFloat(z.string().parse(n));
+	}, z.number().positive().optional()),
+	title: z.string().optional(),
+});
 
 export default async function handler(
 	req: NextApiRequest,
@@ -12,7 +22,13 @@ export default async function handler(
 	await connectMongo();
 	if (req.method === "GET") {
 		try {
-			const products = await getProducts(0);
+			const params = productQuery.parse(req.query);
+			const products = await Product.find({
+				title: new RegExp(params.title ?? "", "i"),
+			})
+				.limit(params.limit ? params.limit : 0)
+				.populate("category")
+				.exec();
 			res.json(products);
 		} catch (error) {
 			res.json({ error });
@@ -41,11 +57,3 @@ export default async function handler(
 		}
 	}
 }
-
-export const getProducts = async (limit: number) => {
-	await connectMongo();
-	return (await Product.find({})
-		.limit(limit)
-		.populate("category")
-		.exec()) as IProduct[];
-};
