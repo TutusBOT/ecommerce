@@ -6,7 +6,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default withApiAuthRequired(
 	async (req: NextApiRequest, res: NextApiResponse) => {
 		const xd = await getSession(req, res);
-		console.log(xd);
 		if (req.method === "GET") {
 			try {
 				await connectMongo();
