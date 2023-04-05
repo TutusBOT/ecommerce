@@ -10,7 +10,7 @@ const productQuery = z.object({
 	limit: z.preprocess((n) => {
 		if (!n) return undefined;
 		return parseFloat(z.string().parse(n));
-	}, z.number().positive().optional()),
+	}, z.number().min(0).optional()),
 	title: z.string().optional(),
 });
 
