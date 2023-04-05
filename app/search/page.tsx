@@ -1,7 +1,8 @@
 import z from "zod";
+import Filters from "./Filters";
 
 const searchParamsSchema = z.object({
-	query: z.string(),
+	title: z.string(),
 	category: z.string().optional(),
 	minPrice: z.preprocess((p) => {
 		if (!p) return undefined;
@@ -14,13 +15,13 @@ const searchParamsSchema = z.object({
 });
 
 const getProducts = async ({
-	query,
+	title,
 	category,
 	minPrice,
 	maxPrice,
 }: z.infer<typeof searchParamsSchema>) => {
 	const req = await fetch(
-		`http://localhost:3000/products?title=${query}&category=${category}&limit=0`,
+		`http://localhost:3000/api/products?title=${title}&limit=0`,
 		{ next: { revalidate: 10 } }
 	);
 	return await req.json();
@@ -35,8 +36,9 @@ const Page = async ({
 	const products = await getProducts(searchFilters);
 	return (
 		<div>
+			<Filters />
 			{products.map((product: any) => (
-				<div key={product._id}>{product.name}</div>
+				<div key={product._id}>{product.title}</div>
 			))}
 		</div>
 	);
