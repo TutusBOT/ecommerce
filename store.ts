@@ -1,12 +1,17 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { Product } from "./models/product";
+import z from "zod";
 
 interface AppState {
 	cart: Array<{
 		item: Product;
 		count: number;
 	}>;
+	filters: {
+		minPrice?: number;
+		maxPrice?: number;
+	};
 }
 
 interface AppActions {
@@ -14,6 +19,7 @@ interface AppActions {
 	removeFromCart: (productId: string) => void;
 	updateItemQuantity: (productId: string, quantity: number) => void;
 	clearCart: () => void;
+	setFilters: (filters: { minPrice?: number; maxPrice?: number }) => void;
 }
 
 export const useAppStore = create<AppState & AppActions>()(
@@ -59,5 +65,8 @@ export const useAppStore = create<AppState & AppActions>()(
 				return state;
 			}),
 		clearCart: () => set(() => ({ cart: [] })),
+		filters: {},
+		setFilters: (filters: { minPrice?: number; maxPrice?: number }) =>
+			set(() => ({ filters: filters })),
 	}))
 );
