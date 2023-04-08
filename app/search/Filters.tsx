@@ -1,10 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import useDebounce from "@/hooks/useDebounce";
+import { useAppStore } from "@/store";
+import { useEffect, useState } from "react";
 
 const Filters = () => {
 	const [minPrice, setMinPrice] = useState("");
 	const [maxPrice, setMaxPrice] = useState("");
+	const setFilters = useAppStore((state) => state.setFilters);
+	const filters = useAppStore((state) => state.filters);
+	const debouncedFilters = useDebounce(
+		{
+			minPrice: minPrice ? parseInt(minPrice) : 0,
+			maxPrice: maxPrice ? parseInt(maxPrice) : 100000,
+		},
+		1000
+	);
+
+	useEffect(() => {
+		if (debouncedFilters) {
+			setFilters(debouncedFilters);
+		}
+	}, [debouncedFilters, setFilters]);
 
 	return (
 		<div className="flex flex-col gap-2">
@@ -33,6 +50,7 @@ const Filters = () => {
 					/>
 				</div>
 			</div>
+			Filters: {JSON.stringify(filters)}
 		</div>
 	);
 };
