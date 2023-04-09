@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import UserProvider from "@/components/UserProvider";
 import "@/styles/globals.css";
+import "react-toastify/dist/ReactToastify.css";
+import Toastify from "./Toastify";
 
 const getCategories = async () => {
 	const req = await fetch("http://localhost:3000/api/categories");
@@ -22,6 +24,7 @@ export default async function RootLayout({
 			<body>
 				<UserProvider>
 					<Header categories={categories} />
+					<Toastify />
 					{children}
 				</UserProvider>
 			</body>
