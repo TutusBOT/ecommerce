@@ -1,7 +1,10 @@
 import mongoose, { Schema, Types, model, models, ObjectId } from "mongoose";
 import z from "zod";
+import { Category } from "./category";
 
-export type Product = z.infer<typeof productSchema>;
+export type Product = {
+	category: Category;
+} & z.infer<typeof productSchema>;
 
 export const productSchema = z.object({
 	_id: z.string(),
