@@ -40,5 +40,5 @@ export const getProduct = async (
 	id: string | string[] | undefined
 ): Promise<ProductInteface> => {
 	await connectMongo();
-	return await Product.findById(id).exec();
+	return await Product.findById(id).populate("category").exec();
 };
