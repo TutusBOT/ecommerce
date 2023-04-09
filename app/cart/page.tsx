@@ -11,13 +11,13 @@ const Cart = () => {
 	const clearCart = useAppStore((state) => state.clearCart);
 	return (
 		<>
-			<div className="flex items-center justify-between">
+			<div className="flex items-center justify-between px-4 pt-4">
 				<h2 className="text-2xl">Cart</h2>
 				<IconButton onClick={() => clearCart()}>
 					Clear cart <MdDeleteOutline />
 				</IconButton>
 			</div>
-			<div className="flex">
+			<div className="flex px-4 pt-4">
 				{cart.length ? (
 					cart.map(({ item, count }) => (
 						<CartItem
