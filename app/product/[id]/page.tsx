@@ -15,6 +15,7 @@ const Product = async ({ params }: any) => {
 	return (
 		<>
 			<main>
+				<div>{`Ecommerce > ${product.category.name}`}</div>
 				<div className="grid grid-cols-2">
 					<div className="relative">
 						<Image
