@@ -6,6 +6,7 @@ import Image from "next/image";
 import { MdAddShoppingCart } from "react-icons/md";
 import IconButton from "./IconButton";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface ProductPreview {
 	product: Product;
@@ -13,6 +14,10 @@ interface ProductPreview {
 
 const ProductPreview = ({ product }: ProductPreview) => {
 	const addToCart = useAppStore((state) => state.addToCart);
+	const handleAddToCart = () => {
+		addToCart(product);
+		toast.success(`Added ${product.title} to cart`);
+	};
 	const { push } = useRouter();
 
 	return (
@@ -35,7 +40,7 @@ const ProductPreview = ({ product }: ProductPreview) => {
 				</div>
 			</div>
 			<IconButton
-				onClick={() => addToCart(product)}
+				onClick={handleAddToCart}
 				className="absolute bottom-2 right-2 z-10 opacity-0 transition-opacity group-hover:opacity-100"
 			>
 				<MdAddShoppingCart />
