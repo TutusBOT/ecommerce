@@ -1,6 +1,8 @@
 import ProductPreview from "@/components/ProductPreview";
 import { Product } from "@/models/product";
 
+export const dynamic = "force-dynamic";
+
 const getProducts = async ({
 	limit,
 	category,
