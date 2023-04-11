@@ -2,6 +2,7 @@ import User from "@/models/user";
 import { connectMongo } from "@/lib/connectMongo";
 import { getSession, withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
 export default withApiAuthRequired(
 	async (req: NextApiRequest, res: NextApiResponse) => {
@@ -47,3 +48,13 @@ export default withApiAuthRequired(
 		}
 	}
 );
+
+// export async function GET(){
+// 	try {
+// 		await connectMongo();
+// 		const user = await User.findOne(req.body.email);
+// 		NextResponse.json(user);
+// 	} catch (error) {
+// 		NextResponse.json(error);
+// 	}
+// }
