@@ -34,8 +34,12 @@ const Product = async ({ params }: any) => {
 							<p>{product.rating?.rate.toString()}</p>
 						</div>
 						<div className="rounded-lg border-[1px] border-gray-300">
-							<p className="text-3xl">{product.price.toString()}zł</p>
-							<AddToCartButton product={product} />
+							<div>
+								<p className="px-4 text-right text-3xl">
+									{product.price.toString()} zł
+								</p>
+								<AddToCartButton product={product} />
+							</div>
 						</div>
 					</div>
 				</div>
