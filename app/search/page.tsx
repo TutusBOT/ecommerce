@@ -24,7 +24,7 @@ const getProducts = async ({
 }: z.infer<typeof searchParamsSchema>) => {
 	try {
 		const req = await fetch(
-			`http://localhost:3000/api/products?title=${title}&limit=0`,
+			`${process.env.NEXT_PUBLIC_SITE_URL}/api/products?title=${title}&limit=0`,
 			{ next: { revalidate: 10 } }
 		);
 		return (await req.json()) as Product[];

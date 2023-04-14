@@ -5,9 +5,12 @@ import AddToCartButton from "./AddToCartButton";
 export const dynamic = "force-dynamic";
 
 const getProduct = async (id: string) => {
-	const req = await fetch(`http://localhost:3000/api/products/${id}`, {
-		next: { revalidate: 10 },
-	});
+	const req = await fetch(
+		`${process.env.NEXT_PUBLIC_SITE_URL}/api/products/${id}`,
+		{
+			next: { revalidate: 10 },
+		}
+	);
 	return req.json();
 };
 

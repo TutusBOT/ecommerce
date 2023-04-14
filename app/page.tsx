@@ -2,7 +2,7 @@ import { Product } from "@/models/product";
 import ProductPreview from "@/components/ProductPreview";
 
 const getProducts = async () => {
-	const req = await fetch("http://localhost:3000/api/products", {
+	const req = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`, {
 		next: { revalidate: 10 },
 	});
 	return await req.json();

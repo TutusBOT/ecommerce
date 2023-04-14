@@ -11,7 +11,7 @@ const getProducts = async ({
 	category: string;
 }) => {
 	const req = await fetch(
-		`http://localhost:3000/api/products?limit=${limit}&category=${category}`,
+		`${process.env.NEXT_PUBLIC_SITE_URL}/api/products?limit=${limit}&category=${category}`,
 		{ next: { revalidate: 10 } }
 	);
 	return await req.json();
