@@ -1,38 +1,47 @@
 import Product, { Product as ProductInteface } from "@/models/product";
 import { connectMongo } from "@/lib/connectMongo";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse
+export async function GET(
+	request: Request,
+	{ params }: { params: { id: string } }
 ) {
-	await connectMongo();
-	if (req.method === "GET") {
-		try {
-			const product = await getProduct(req.query.id);
-			res.json(product);
-		} catch (error) {
-			res.json(error);
-		}
+	try {
+		await connectMongo();
+		const product = await getProduct(params.id);
+		return NextResponse.json(product);
+	} catch (error) {
+		return NextResponse.json(error);
 	}
-	if (req.method === "PATCH") {
-		try {
-			const product = await Product.findByIdAndUpdate(req.query.id, req.body, {
-				upsert: true,
-				new: true,
-			});
-			res.json(product);
-		} catch (error) {
-			res.json(error);
-		}
+}
+
+export async function PATCH(
+	request: Request,
+	{ params }: { params: { id: string } }
+) {
+	try {
+		await connectMongo();
+		const body = request.json();
+		const product = await Product.findByIdAndUpdate(params.id, body, {
+			upsert: true,
+			new: true,
+		});
+		return NextResponse.json(product);
+	} catch (error) {
+		return NextResponse.json(error);
 	}
-	if (req.method === "DELETE") {
-		try {
-			await Product.findByIdAndDelete(req.query.id);
-			res.status(204).send("");
-		} catch (error) {
-			res.json(error);
-		}
+}
+
+export async function DELETE(
+	request: Request,
+	{ params }: { params: { id: string } }
+) {
+	try {
+		await connectMongo();
+		await Product.findByIdAndDelete(params.id);
+		return NextResponse.json("", { status: 204 });
+	} catch (error) {
+		return NextResponse.json(error);
 	}
 }
 
