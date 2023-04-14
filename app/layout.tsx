@@ -5,7 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Toastify from "./Toastify";
 
 const getCategories = async () => {
-	const req = await fetch("http://localhost:3000/api/categories");
+	const req = await fetch("http://localhost:3000/api/categories", {
+		next: { revalidate: 10 },
+	});
 	return await req.json();
 };
 
