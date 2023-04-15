@@ -1,11 +1,11 @@
-import { Product } from "@/models/product";
+import ProductModel, { Product } from "@/models/product";
 import ProductPreview from "@/components/ProductPreview";
+import { connectMongo } from "@/lib/connectMongo";
 
 const getProducts = async () => {
-	const req = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`, {
-		next: { revalidate: 10 },
-	});
-	return await req.json();
+	await connectMongo();
+	const products = await ProductModel.find({}).populate("category").exec();
+	return JSON.parse(JSON.stringify(products));
 };
 
 export default async function Home() {

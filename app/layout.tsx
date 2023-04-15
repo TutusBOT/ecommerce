@@ -3,12 +3,13 @@ import UserProvider from "@/components/UserProvider";
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import Toastify from "./Toastify";
+import { connectMongo } from "@/lib/connectMongo";
+import CategoryModel from "@/models/category";
 
 const getCategories = async () => {
-	const req = await fetch("http://localhost:3000/api/categories", {
-		next: { revalidate: 10 },
-	});
-	return await req.json();
+	await connectMongo();
+	const categories = await CategoryModel.find({});
+	return JSON.parse(JSON.stringify(categories));
 };
 
 export default async function RootLayout({

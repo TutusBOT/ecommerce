@@ -1,5 +1,6 @@
 import ProductPreview from "@/components/ProductPreview";
-import { Product } from "@/models/product";
+import { connectMongo } from "@/lib/connectMongo";
+import ProductModel, { Product } from "@/models/product";
 
 export const dynamic = "force-dynamic";
 
@@ -10,11 +11,9 @@ const getProducts = async ({
 	limit: number;
 	category: string;
 }) => {
-	const req = await fetch(
-		`${process.env.NEXT_PUBLIC_SITE_URL}/api/products?limit=${limit}&category=${category}`,
-		{ next: { revalidate: 10 } }
-	);
-	return await req.json();
+	await connectMongo();
+	const products = await ProductModel.find({}).populate("category");
+	return JSON.parse(JSON.stringify(products));
 };
 
 const page = async ({ params }: any) => {

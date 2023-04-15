@@ -1,4 +1,4 @@
-import Product, { Product as ProductInteface } from "@/models/product";
+import Product, { Product as ProductInterface } from "@/models/product";
 import { connectMongo } from "@/lib/connectMongo";
 import { NextResponse } from "next/server";
 
@@ -47,7 +47,7 @@ export async function DELETE(
 
 export const getProduct = async (
 	id: string | string[] | undefined
-): Promise<ProductInteface> => {
+): Promise<ProductInterface> => {
 	await connectMongo();
 	return await Product.findById(id).populate("category").exec();
 };

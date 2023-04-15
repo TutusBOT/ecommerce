@@ -19,6 +19,6 @@ const schema = new Schema<Category>({
 	},
 });
 
-const Category = models.Category || model("Category", schema);
+const CategoryModel = models.Category || model("Category", schema);
 
-export default Category;
+export default CategoryModel;

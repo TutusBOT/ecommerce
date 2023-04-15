@@ -1,7 +1,8 @@
 import z from "zod";
 import Filters from "./Filters";
-import { Product } from "@/models/product";
+import ProductModel, { Product } from "@/models/product";
 import ProductList from "./ProductList";
+import { connectMongo } from "@/lib/connectMongo";
 
 const searchParamsSchema = z.object({
 	title: z.string(),
@@ -23,11 +24,13 @@ const getProducts = async ({
 	maxPrice,
 }: z.infer<typeof searchParamsSchema>) => {
 	try {
-		const req = await fetch(
-			`${process.env.NEXT_PUBLIC_SITE_URL}/api/products?title=${title}&limit=0`,
-			{ next: { revalidate: 10 } }
-		);
-		return (await req.json()) as Product[];
+		await connectMongo();
+		const products = await ProductModel.find({
+			title: new RegExp(title ?? "", "i"),
+		})
+			.populate("category")
+			.exec();
+		return JSON.parse(JSON.stringify(products));
 	} catch (error) {
 		console.error(error);
 		return [];
@@ -39,8 +42,13 @@ const Page = async ({
 }: {
 	searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-	const searchFilters = searchParamsSchema.parse(searchParams);
-	const products = await getProducts(searchFilters);
+	let products;
+	try {
+		const searchFilters = searchParamsSchema.parse(searchParams);
+		products = await getProducts(searchFilters);
+	} catch (error) {
+		products = await getProducts({ title: "" });
+	}
 	return (
 		<div>
 			<Filters />
