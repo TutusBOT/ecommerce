@@ -38,6 +38,6 @@ next-env.d.ts
 data
 
 # images
-public/products
+# public/products
 
 .env.prod
