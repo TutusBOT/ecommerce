@@ -12,17 +12,15 @@ const Header = ({ categories }: Header) => {
 	return (
 		<header className="flex flex-col">
 			<nav className="w-full">
-				<ul className="flex items-center justify-end gap-4 py-2 px-4 text-xl shadow-md">
+				<ul className="flex items-center justify-between gap-4 py-2 px-8 text-xl shadow-md">
 					<li>
 						<Link href="/">Home</Link>
 					</li>
 					<li>
 						<SearchBar />
 					</li>
-					<li>
+					<li className="item-center flex gap-4">
 						<Cart />
-					</li>
-					<li>
 						<Profile />
 					</li>
 				</ul>

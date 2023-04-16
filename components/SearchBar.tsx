@@ -9,7 +9,7 @@ const SearchBar = () => {
 	const { push } = useRouter();
 	const [query, setQuery] = useState("");
 	return (
-		<div className="flex rounded-lg border border-gray-400">
+		<div className="flex w-full rounded-lg border border-gray-400">
 			<input
 				type="text"
 				className="bg-transparent"
