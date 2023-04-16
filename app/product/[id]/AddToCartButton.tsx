@@ -27,13 +27,13 @@ const AddToCartButton = ({ product }: { product: Product }) => {
 	};
 
 	return (
-		<div className="flex gap-2 p-4">
+		<div className="flex justify-end gap-2 p-4">
 			<input
 				type="number"
 				min={1}
 				value={amount}
 				onChange={(e) => setAmount(e.target.value)}
-				className="w-8 outline-none"
+				className="w-10 rounded-lg border-[1px] border-gray-300 pl-2 outline-none"
 			/>
 			<button
 				onClick={handleAddToCart}
