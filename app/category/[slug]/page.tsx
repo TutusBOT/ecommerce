@@ -22,10 +22,13 @@ const page = async ({ params }: any) => {
 		category: params.slug,
 	});
 	return (
-		<div className="grid">
-			{products.map((product) => (
-				<ProductPreview key={product._id} product={product} />
-			))}
+		<div className="mt-4 flex flex-col items-center justify-center gap-2 px-2 sm:px-4">
+			<h2 className="text-2xl capitalize">{params.slug}</h2>
+			<div className="grid w-full max-w-7xl grid-cols-3">
+				{products.map((product) => (
+					<ProductPreview key={product._id} product={product} />
+				))}
+			</div>
 		</div>
 	);
 };
