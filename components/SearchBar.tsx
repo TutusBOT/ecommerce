@@ -12,7 +12,7 @@ const SearchBar = () => {
 		<div className="flex w-full rounded-lg border border-gray-400">
 			<input
 				type="text"
-				className="bg-transparent"
+				className="bg-transparent pl-2 outline-none"
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 			/>
