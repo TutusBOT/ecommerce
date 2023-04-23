@@ -5,7 +5,7 @@ import { MdAccountCircle } from "react-icons/md";
 const Profile = () => {
 	return (
 		<div className="group relative">
-			<div className="flex flex-col">
+			<div className="flex cursor-pointer flex-col">
 				<MdAccountCircle size={32} />
 				<p className="text-xs">Profile</p>
 			</div>
