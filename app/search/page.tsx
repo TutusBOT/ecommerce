@@ -50,7 +50,7 @@ const Page = async ({
 		products = await getProducts({ title: "" });
 	}
 	return (
-		<div>
+		<div className="flex flex-col sm:flex-row">
 			<Filters />
 			<ProductList products={products} />
 		</div>
