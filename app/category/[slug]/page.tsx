@@ -13,7 +13,10 @@ const getProducts = async ({
 }) => {
 	await connectMongo();
 	const products = await ProductModel.find({}).populate("category");
-	return JSON.parse(JSON.stringify(products));
+	const filteredProducts = products.filter(
+		(product) => product.category.slug === category
+	);
+	return JSON.parse(JSON.stringify(filteredProducts));
 };
 
 const page = async ({ params }: any) => {
@@ -24,7 +27,7 @@ const page = async ({ params }: any) => {
 	return (
 		<div className="mt-4 flex flex-col items-center justify-center gap-2 px-2 sm:px-4">
 			<h2 className="text-2xl capitalize">{params.slug}</h2>
-			<div className="grid w-full max-w-7xl grid-cols-3">
+			<div className="grid w-full max-w-7xl grid-cols-3 border-t-[1px] border-gray-300 py-4">
 				{products.map((product) => (
 					<ProductPreview key={product._id} product={product} />
 				))}
