@@ -8,6 +8,12 @@ import { useRouter } from "next/navigation";
 const SearchBar = () => {
 	const { push } = useRouter();
 	const [query, setQuery] = useState("");
+
+	const handleSearch = () => {
+		push(`/search?title=${query}`);
+		setQuery("");
+	};
+
 	return (
 		<div className="flex w-full rounded-lg border border-gray-400">
 			<input
@@ -15,13 +21,11 @@ const SearchBar = () => {
 				className="bg-transparent pl-2 outline-none"
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
-			/>
-			<IconButton
-				onClick={() => {
-					push(`/search?title=${query}`);
-					setQuery("");
+				onKeyDown={(e) => {
+					if (e.key === "Enter") handleSearch();
 				}}
-			>
+			/>
+			<IconButton onClick={handleSearch}>
 				<MdSearch />
 			</IconButton>
 		</div>
