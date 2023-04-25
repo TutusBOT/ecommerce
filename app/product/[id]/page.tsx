@@ -16,17 +16,8 @@ const Product = async ({ params }: any) => {
 	if (!product) return <>Product not found</>;
 	return (
 		<div className="flex flex-col items-center justify-center">
-			<div className="w-full px-8 pt-4 text-lg">
-				Ecommerce{" > "}
-				<Link
-					className="hover:underline"
-					href={`category/${product.category.slug}`}
-				>
-					{product.category.name}
-				</Link>
-			</div>
-			<main className="max-w-7x flex flex-col items-center pt-8">
-				<div className="grid w-full grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 2xl:w-[1536px]">
+			<main className="max-w-7x flex flex-col items-center pt-8 sm:pt-16">
+				<div className="grid w-full grid-cols-1 grid-rows-2 sm:grid-cols-3 sm:grid-rows-1 2xl:w-[1536px]">
 					<div className="relative w-full">
 						<Image
 							src={product.image ?? ""}
@@ -35,29 +26,29 @@ const Product = async ({ params }: any) => {
 							className="object-contain"
 						/>
 					</div>
-					<div className="flex w-full flex-col gap-2">
-						<div className="flex">
+					<div className="flex w-full flex-col gap-4 sm:col-start-2 sm:col-end-4">
+						<div className="w-full text-lg">
+							Ecommerce{" > "}
+							<Link
+								className="hover:underline"
+								href={`category/${product.category.slug}`}
+							>
+								{product.category.name}
+							</Link>
+						</div>
+						<div className="flex py-4">
 							<h2 className="text-4xl">{product.title}</h2>
 						</div>
-						<div className="grid gap-2 lg:grid-cols-2">
-							<div className="flex flex-col border-[1px] border-gray-300">
-								<p>
-									<strong>Description:</strong> {product.description}
-								</p>
-								<p>
-									<strong>Rating: </strong>
-									{product.rating?.rate.toString()}
-								</p>
-							</div>
-							<div className="rounded-lg border-[1px] border-gray-300 pt-2">
-								<div>
-									<p className="px-4 text-right text-3xl">
-										{product.price.toString()} zł
-									</p>
-									<AddToCartButton product={product} />
-								</div>
-							</div>
-						</div>
+						<p className="text-3xl">${product.price.toString()}</p>
+						<p className="flex gap-2">
+							<strong>Rating: </strong>
+							<div>{product.rating?.rate.toString()}</div>
+						</p>
+						<AddToCartButton product={product} />
+						<p className="flex flex-col gap-4 pt-8">
+							<strong className="text-3xl">Product details</strong>{" "}
+							<p>{product.description}</p>
+						</p>
 					</div>
 				</div>
 			</main>

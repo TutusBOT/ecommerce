@@ -27,7 +27,7 @@ const AddToCartButton = ({ product }: { product: Product }) => {
 	};
 
 	return (
-		<div className="flex justify-end gap-2 p-4">
+		<div className="flex gap-2">
 			<input
 				type="number"
 				min={1}
