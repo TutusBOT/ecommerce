@@ -27,17 +27,17 @@ const AddToCartButton = ({ product }: { product: Product }) => {
 	};
 
 	return (
-		<div className="flex gap-2 p-4">
+		<div className="flex gap-2">
 			<input
 				type="number"
 				min={1}
 				value={amount}
 				onChange={(e) => setAmount(e.target.value)}
-				className="w-8 outline-none"
+				className="w-10 rounded-2xl border-[1px] border-gray-300 pl-2 outline-none"
 			/>
 			<button
 				onClick={handleAddToCart}
-				className="flex items-center gap-2 rounded-xl bg-green-600 px-6 py-2 text-white transition-colors hover:bg-green-800"
+				className="flex items-center gap-2 rounded-2xl bg-green-600 px-6 py-2 text-white transition-colors hover:bg-green-800"
 			>
 				<MdAddShoppingCart /> Add to cart
 			</button>

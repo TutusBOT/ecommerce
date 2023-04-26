@@ -3,6 +3,7 @@ import Image from "next/image";
 import AddToCartButton from "./AddToCartButton";
 export const dynamic = "force-dynamic";
 import { connectMongo } from "@/lib/connectMongo";
+import Link from "next/link";
 
 const getProduct = async (id: string) => {
 	await connectMongo();
@@ -14,11 +15,10 @@ const Product = async ({ params }: any) => {
 	const product: ProductInterface = await getProduct(params.id);
 	if (!product) return <>Product not found</>;
 	return (
-		<>
-			<main className="flex flex-col items-center">
-				<div>{`Ecommerce > ${product.category.name}`}</div>
-				<div className="grid w-full grid-cols-2 2xl:w-[1536px]">
-					<div className="relative">
+		<div className="flex flex-col items-center justify-center">
+			<main className="max-w-7x flex flex-col items-center pt-8 sm:pt-16">
+				<div className="grid w-full grid-cols-1 grid-rows-2 sm:grid-cols-3 sm:grid-rows-1 2xl:w-[1536px]">
+					<div className="relative w-full">
 						<Image
 							src={product.image ?? ""}
 							alt={product.title}
@@ -26,24 +26,33 @@ const Product = async ({ params }: any) => {
 							className="object-contain"
 						/>
 					</div>
-					<div className="flex">
-						<div className="flex flex-col">
+					<div className="flex w-full flex-col gap-4 sm:col-start-2 sm:col-end-4">
+						<div className="w-full text-lg">
+							Ecommerce{" > "}
+							<Link
+								className="hover:underline"
+								href={`category/${product.category.slug}`}
+							>
+								{product.category.name}
+							</Link>
+						</div>
+						<div className="flex py-4">
 							<h2 className="text-4xl">{product.title}</h2>
+						</div>
+						<p className="text-3xl">${product.price.toString()}</p>
+						<p className="flex gap-2">
+							<strong>Rating: </strong>
+							<div>{product.rating?.rate.toString()}</div>
+						</p>
+						<AddToCartButton product={product} />
+						<p className="flex flex-col gap-4 pt-8">
+							<strong className="text-3xl">Product details</strong>{" "}
 							<p>{product.description}</p>
-							<p>{product.rating?.rate.toString()}</p>
-						</div>
-						<div className="rounded-lg border-[1px] border-gray-300">
-							<div>
-								<p className="px-4 text-right text-3xl">
-									{product.price.toString()} zł
-								</p>
-								<AddToCartButton product={product} />
-							</div>
-						</div>
+						</p>
 					</div>
 				</div>
 			</main>
-		</>
+		</div>
 	);
 };
 export default Product;
