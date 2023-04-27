@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Toastify from "./Toastify";
 import { connectMongo } from "@/lib/connectMongo";
 import CategoryModel from "@/models/category";
+import SessionProvider from "./SessionProvider";
 
 const getCategories = async () => {
 	await connectMongo();
@@ -14,8 +15,10 @@ const getCategories = async () => {
 
 export default async function RootLayout({
 	children,
+	session,
 }: {
 	children: React.ReactNode;
+	session: any;
 }) {
 	const categories = await getCategories();
 	return (
@@ -26,9 +29,11 @@ export default async function RootLayout({
 			</head>
 			<body>
 				<UserProvider>
-					<Header categories={categories} />
-					<Toastify />
-					{children}
+					<SessionProvider session={session}>
+						<Header categories={categories} />
+						<Toastify />
+						{children}
+					</SessionProvider>
 				</UserProvider>
 			</body>
 		</html>
