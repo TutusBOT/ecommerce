@@ -42,12 +42,12 @@ const Product = async ({ params }: any) => {
 						<p className="text-3xl">${product.price.toString()}</p>
 						<p className="flex gap-2">
 							<strong>Rating: </strong>
-							<div>{product.rating?.rate.toString()}</div>
+							{product.rating?.rate.toString()}
 						</p>
 						<AddToCartButton product={product} />
 						<p className="flex flex-col gap-4 pt-8">
 							<strong className="text-3xl">Product details</strong>{" "}
-							<p>{product.description}</p>
+							{product.description}
 						</p>
 					</div>
 				</div>
