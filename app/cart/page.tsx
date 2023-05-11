@@ -13,7 +13,7 @@ const Cart = () => {
 		<>
 			<div className="flex items-center justify-between px-4 pt-4">
 				<h2 className="text-2xl">Cart</h2>
-				<IconButton onClick={() => clearCart()}>
+				<IconButton onClick={() => clearCart()} type="button">
 					Clear cart <MdDeleteOutline />
 				</IconButton>
 			</div>
