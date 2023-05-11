@@ -11,8 +11,8 @@ const Filters = () => {
 	const filters = useAppStore((state) => state.filters);
 	const debouncedFilters = useDebounce(
 		{
-			minPrice: minPrice ? parseInt(minPrice) : 0,
-			maxPrice: maxPrice ? parseInt(maxPrice) : 100000,
+			minPrice: minPrice ? parseInt(minPrice, 10) : 0,
+			maxPrice: maxPrice ? parseInt(maxPrice, 10) : 100000,
 		},
 		1000
 	);
