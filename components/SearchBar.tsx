@@ -1,9 +1,9 @@
 "use client";
 
 import { MdSearch } from "react-icons/md";
-import IconButton from "./IconButton";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import IconButton from "./IconButton";
 
 const SearchBar = () => {
 	const { push } = useRouter();
