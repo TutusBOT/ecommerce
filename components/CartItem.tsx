@@ -1,12 +1,12 @@
 import { useAppStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
-import IconButton from "./IconButton";
 import {
 	MdDeleteOutline,
 	MdRemoveCircleOutline,
 	MdAddCircleOutline,
 } from "react-icons/md";
+import IconButton from "./IconButton";
 
 interface CartItem {
 	id: string;
@@ -16,12 +16,12 @@ interface CartItem {
 	count: number;
 }
 
-const CartItem = ({ id, image, title, price, count }: CartItem) => {
+const Component = ({ id, image, title, price, count }: CartItem) => {
 	const { updateItemQuantity, removeFromCart } = useAppStore((state) => state);
 
 	const handleRemove = () => {
 		if (count < 2) return removeFromCart(id);
-		updateItemQuantity(id, count - 1);
+		return updateItemQuantity(id, count - 1);
 	};
 
 	return (
@@ -46,4 +46,4 @@ const CartItem = ({ id, image, title, price, count }: CartItem) => {
 		</div>
 	);
 };
-export default CartItem;
+export default Component;
