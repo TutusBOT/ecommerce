@@ -1,11 +1,12 @@
 import Header from "@/components/Header";
-import UserProvider from "@/components/UserProvider";
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
-import Toastify from "./Toastify";
-import { connectMongo } from "@/lib/connectMongo";
 import CategoryModel from "@/models/category";
+import { connectMongo } from "@/lib/connectMongo";
+import React from "react";
+import { Session } from "next-auth";
 import SessionProvider from "./SessionProvider";
+import Toastify from "./Toastify";
 
 const getCategories = async () => {
 	await connectMongo();
@@ -18,7 +19,7 @@ export default async function RootLayout({
 	session,
 }: {
 	children: React.ReactNode;
-	session: any;
+	session: Session;
 }) {
 	const categories = await getCategories();
 	return (
@@ -28,13 +29,11 @@ export default async function RootLayout({
 				<link rel="icon" href="/favicon.ico" />
 			</head>
 			<body>
-				<UserProvider>
-					<SessionProvider session={session}>
-						<Header categories={categories} />
-						<Toastify />
-						{children}
-					</SessionProvider>
-				</UserProvider>
+				<SessionProvider session={session}>
+					<Header categories={categories} />
+					<Toastify />
+					{children}
+				</SessionProvider>
 			</body>
 		</html>
 	);
