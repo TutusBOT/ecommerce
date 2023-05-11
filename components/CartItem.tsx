@@ -8,7 +8,7 @@ import {
 } from "react-icons/md";
 import IconButton from "./IconButton";
 
-interface CartItem {
+interface CartItemProps {
 	id: string;
 	image: string;
 	title: string;
@@ -16,7 +16,7 @@ interface CartItem {
 	count: number;
 }
 
-const Component = ({ id, image, title, price, count }: CartItem) => {
+const CartItem = ({ id, image, title, price, count }: CartItemProps) => {
 	const { updateItemQuantity, removeFromCart } = useAppStore((state) => state);
 
 	const handleRemove = () => {
@@ -49,4 +49,4 @@ const Component = ({ id, image, title, price, count }: CartItem) => {
 		</div>
 	);
 };
-export default Component;
+export default CartItem;

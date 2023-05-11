@@ -4,11 +4,11 @@ import ProductPreview from "@/components/ProductPreview";
 import { Product } from "@/models/product";
 import { useAppStore } from "@/store";
 
-interface ProductList {
+interface ProductListProps {
 	products: Product[];
 }
 
-const Component = ({ products }: ProductList) => {
+const ProductList = ({ products }: ProductListProps) => {
 	const filters = useAppStore((state) => state.filters);
 
 	const filteredProducts = products.filter(
@@ -25,4 +25,4 @@ const Component = ({ products }: ProductList) => {
 		</div>
 	);
 };
-export default Component;
+export default ProductList;

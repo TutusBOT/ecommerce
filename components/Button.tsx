@@ -7,13 +7,13 @@ const variants = {
 		"rounded-xl border-[1px] border-blue-500 bg-white py-2 px-4 text-blue-500 transition-colors hover:bg-blue-500 hover:text-white",
 };
 
-interface Button extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	type: "button" | "submit";
 	children: React.ReactNode;
 	variant: keyof typeof variants;
 }
 
-const Component: FC<Button> = ({
+const Button: FC<ButtonProps> = ({
 	type,
 	children = null,
 	variant,
@@ -29,4 +29,4 @@ const Component: FC<Button> = ({
 	</button>
 );
 
-export default Component;
+export default Button;

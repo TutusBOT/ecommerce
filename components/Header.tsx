@@ -4,11 +4,11 @@ import Cart from "./Cart";
 import Profile from "./Profile";
 import SearchBar from "./SearchBar";
 
-interface Header {
+interface HeaderProps {
 	categories: Category[];
 }
 
-const Component = ({ categories }: Header) => (
+const Header = ({ categories }: HeaderProps) => (
 	<header className="flex flex-col">
 		<nav className="w-full">
 			<ul className="flex items-center justify-between gap-4 py-2 px-8 text-xl shadow-md">
@@ -38,4 +38,4 @@ const Component = ({ categories }: Header) => (
 		</div>
 	</header>
 );
-export default Component;
+export default Header;
