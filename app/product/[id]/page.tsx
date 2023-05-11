@@ -1,9 +1,10 @@
 import ProductModel, { Product as ProductInterface } from "@/models/product";
 import Image from "next/image";
-import AddToCartButton from "./AddToCartButton";
-export const dynamic = "force-dynamic";
 import { connectMongo } from "@/lib/connectMongo";
 import Link from "next/link";
+import AddToCartButton from "./AddToCartButton";
+
+export const dynamic = "force-dynamic";
 
 const getProduct = async (id: string) => {
 	await connectMongo();
