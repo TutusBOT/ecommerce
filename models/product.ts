@@ -1,10 +1,6 @@
-import mongoose, { Schema, Types, model, models, ObjectId } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 import z from "zod";
 import { Category } from "./category";
-
-export type Product = {
-	category: Category;
-} & z.infer<typeof productSchema>;
 
 export const productSchema = z.object({
 	_id: z.string(),
@@ -20,6 +16,10 @@ export const productSchema = z.object({
 		})
 		.optional(),
 });
+
+export type Product = {
+	category: Category;
+} & z.infer<typeof productSchema>;
 
 const schema = new Schema({
 	title: {
@@ -46,6 +46,6 @@ const schema = new Schema({
 	},
 });
 
-const Product = models.Product || model("Product", schema);
+const Model = models.Product || model("Product", schema);
 
-export default Product;
+export default Model;
