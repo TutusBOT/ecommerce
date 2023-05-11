@@ -4,9 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import CategoryModel from "@/models/category";
 import { connectMongo } from "@/lib/connectMongo";
 import React from "react";
-import { Session } from "next-auth";
+import { getServerSession } from "next-auth";
 import SessionProvider from "./SessionProvider";
 import Toastify from "./Toastify";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 const getCategories = async () => {
 	await connectMongo();
@@ -16,11 +17,10 @@ const getCategories = async () => {
 
 export default async function RootLayout({
 	children,
-	session,
 }: {
 	children: React.ReactNode;
-	session: Session;
 }) {
+	const session = await getServerSession(authOptions);
 	const categories = await getCategories();
 	return (
 		<html lang="en">
