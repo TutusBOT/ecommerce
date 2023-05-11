@@ -13,14 +13,12 @@ export default async function Home() {
 	if (!products) return "Error while fetching products";
 
 	return (
-		<>
-			<main className="flex items-center justify-center">
-				<div className="grid w-full max-w-screen-2xl grid-cols-4 items-center justify-items-center gap-4 py-4 px-4">
-					{products.map((product: Product) => (
-						<ProductPreview key={product._id} product={product} />
-					))}
-				</div>
-			</main>
-		</>
+		<main className="flex items-center justify-center">
+			<div className="grid w-full max-w-screen-2xl grid-cols-4 items-center justify-items-center gap-4 py-4 px-4">
+				{products.map((product: Product) => (
+					<ProductPreview key={product._id} product={product} />
+				))}
+			</div>
+		</main>
 	);
 }

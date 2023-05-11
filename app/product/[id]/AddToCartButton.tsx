@@ -9,7 +9,7 @@ import z from "zod";
 
 const amountSchema = z.preprocess((n) => {
 	if (!n) return 1;
-	return parseInt(z.string().parse(n));
+	return parseInt(z.string().parse(n), 10);
 }, z.number().positive());
 
 const AddToCartButton = ({ product }: { product: Product }) => {
@@ -20,10 +20,10 @@ const AddToCartButton = ({ product }: { product: Product }) => {
 		const parsedAmount = amountSchema.parse(amount);
 		if (!parsedAmount)
 			return toast.error("Provide appropriate number of items.");
-		for (let i = 0; i < parsedAmount; i++) {
+		for (let i = 0; i < parsedAmount; i += 1) {
 			addToCart(product);
 		}
-		toast.success(`Added ${product.title} to cart`);
+		return toast.success(`Added ${product.title} to cart`);
 	};
 
 	return (
@@ -36,6 +36,7 @@ const AddToCartButton = ({ product }: { product: Product }) => {
 				className="w-10 rounded-2xl border-[1px] border-gray-300 pl-2 outline-none"
 			/>
 			<button
+				type="button"
 				onClick={handleAddToCart}
 				className="flex items-center gap-2 rounded-2xl bg-green-600 px-6 py-2 text-white transition-colors hover:bg-green-800"
 			>

@@ -4,16 +4,17 @@ import ProductPreview from "@/components/ProductPreview";
 import { Product } from "@/models/product";
 import { useAppStore } from "@/store";
 
-interface ProductList {
+interface ProductListProps {
 	products: Product[];
 }
 
-const ProductList = ({ products }: ProductList) => {
+const ProductList = ({ products }: ProductListProps) => {
 	const filters = useAppStore((state) => state.filters);
 
-	const filteredProducts = products.filter((product) => {
-		return product.price > filters.minPrice && product.price < filters.maxPrice;
-	});
+	const filteredProducts = products.filter(
+		(product) =>
+			product.price > filters.minPrice && product.price < filters.maxPrice
+	);
 	return (
 		<div className="flex items-center justify-center">
 			<div className="w-full max-w-7xl">

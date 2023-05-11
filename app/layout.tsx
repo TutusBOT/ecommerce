@@ -1,10 +1,13 @@
 import Header from "@/components/Header";
-import UserProvider from "@/components/UserProvider";
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
-import Toastify from "./Toastify";
-import { connectMongo } from "@/lib/connectMongo";
 import CategoryModel from "@/models/category";
+import { connectMongo } from "@/lib/connectMongo";
+import React from "react";
+import { getServerSession } from "next-auth";
+import SessionProvider from "./SessionProvider";
+import Toastify from "./Toastify";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 const getCategories = async () => {
 	await connectMongo();
@@ -17,6 +20,7 @@ export default async function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
+	const session = await getServerSession(authOptions);
 	const categories = await getCategories();
 	return (
 		<html lang="en">
@@ -25,11 +29,11 @@ export default async function RootLayout({
 				<link rel="icon" href="/favicon.ico" />
 			</head>
 			<body>
-				<UserProvider>
+				<SessionProvider session={session}>
 					<Header categories={categories} />
 					<Toastify />
 					{children}
-				</UserProvider>
+				</SessionProvider>
 			</body>
 		</html>
 	);

@@ -1,14 +1,14 @@
 import { useAppStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
-import IconButton from "./IconButton";
 import {
 	MdDeleteOutline,
 	MdRemoveCircleOutline,
 	MdAddCircleOutline,
 } from "react-icons/md";
+import IconButton from "./IconButton";
 
-interface CartItem {
+interface CartItemProps {
 	id: string;
 	image: string;
 	title: string;
@@ -16,12 +16,12 @@ interface CartItem {
 	count: number;
 }
 
-const CartItem = ({ id, image, title, price, count }: CartItem) => {
+const CartItem = ({ id, image, title, price, count }: CartItemProps) => {
 	const { updateItemQuantity, removeFromCart } = useAppStore((state) => state);
 
 	const handleRemove = () => {
 		if (count < 2) return removeFromCart(id);
-		updateItemQuantity(id, count - 1);
+		return updateItemQuantity(id, count - 1);
 	};
 
 	return (
@@ -32,15 +32,18 @@ const CartItem = ({ id, image, title, price, count }: CartItem) => {
 			</Link>
 			<p>{price}</p>
 			<p className="flex items-center gap-2">
-				<IconButton onClick={handleRemove}>
+				<IconButton type="button" onClick={handleRemove}>
 					<MdRemoveCircleOutline />
 				</IconButton>{" "}
 				{count}{" "}
-				<IconButton onClick={() => updateItemQuantity(id, count + 1)}>
+				<IconButton
+					type="button"
+					onClick={() => updateItemQuantity(id, count + 1)}
+				>
 					<MdAddCircleOutline />
 				</IconButton>
 			</p>
-			<IconButton onClick={() => removeFromCart(id)}>
+			<IconButton type="button" onClick={() => removeFromCart(id)}>
 				<MdDeleteOutline size={24} />
 			</IconButton>
 		</div>

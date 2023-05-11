@@ -1,8 +1,8 @@
 import z from "zod";
-import Filters from "./Filters";
-import ProductModel, { Product } from "@/models/product";
-import ProductList from "./ProductList";
+import ProductModel from "@/models/product";
 import { connectMongo } from "@/lib/connectMongo";
+import Filters from "./Filters";
+import ProductList from "./ProductList";
 
 const searchParamsSchema = z.object({
 	title: z.string(),
@@ -32,7 +32,7 @@ const getProducts = async ({
 			.exec();
 		return JSON.parse(JSON.stringify(products));
 	} catch (error) {
-		console.error(error);
+		console.error(error, category, minPrice, maxPrice);
 		return [];
 	}
 };

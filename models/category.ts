@@ -1,12 +1,12 @@
 import { model, models, Schema } from "mongoose";
 import z from "zod";
 
-export type Category = z.infer<typeof categorySchema>;
-
 export const categorySchema = z.object({
 	name: z.string(),
 	slug: z.string(),
 });
+
+export type Category = z.infer<typeof categorySchema>;
 
 const schema = new Schema<Category>({
 	name: {

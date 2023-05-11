@@ -23,8 +23,7 @@ export async function POST(request: Request) {
 	} catch (error) {
 		if (error instanceof ZodError)
 			return NextResponse.json({ error }, { status: 400 });
-		else {
-			return NextResponse.json({ error });
-		}
+
+		return NextResponse.json({ error });
 	}
 }
