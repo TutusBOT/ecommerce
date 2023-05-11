@@ -25,7 +25,7 @@ const SearchBar = () => {
 					if (e.key === "Enter") handleSearch();
 				}}
 			/>
-			<IconButton onClick={handleSearch}>
+			<IconButton type="button" onClick={handleSearch}>
 				<MdSearch />
 			</IconButton>
 		</div>
