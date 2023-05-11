@@ -1,25 +1,31 @@
 import { Schema, model, models } from "mongoose";
-import { productSchema } from "./product";
+import z from "zod";
 
-const userSchema = new Schema({
+export const userSchema = z.object({
+	email: z.string().email(),
+	isAdmin: z.boolean().optional(),
+	hashedPassword: z.string(),
+});
+
+export type User = z.infer<typeof userSchema>;
+
+const schema = new Schema<User>({
 	email: {
 		type: String,
 		unique: true,
 		required: true,
 	},
-	name: {
-		type: String,
-		required: true,
-	},
-	picture: String,
-	email_verified: Boolean,
-	admin: {
+	isAdmin: {
 		type: Boolean,
 		default: false,
 	},
-	cart: [productSchema],
+	hashedPassword: {
+		type: String,
+		required: true,
+		minlength: 5,
+	},
 });
 
-const User = models.User || model("User", userSchema);
+const Model = models.User || model("User", schema);
 
-export default User;
+export default Model;
