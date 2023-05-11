@@ -32,15 +32,18 @@ const Component = ({ id, image, title, price, count }: CartItem) => {
 			</Link>
 			<p>{price}</p>
 			<p className="flex items-center gap-2">
-				<IconButton onClick={handleRemove}>
+				<IconButton type="button" onClick={handleRemove}>
 					<MdRemoveCircleOutline />
 				</IconButton>{" "}
 				{count}{" "}
-				<IconButton onClick={() => updateItemQuantity(id, count + 1)}>
+				<IconButton
+					type="button"
+					onClick={() => updateItemQuantity(id, count + 1)}
+				>
 					<MdAddCircleOutline />
 				</IconButton>
 			</p>
-			<IconButton onClick={() => removeFromCart(id)}>
+			<IconButton type="button" onClick={() => removeFromCart(id)}>
 				<MdDeleteOutline size={24} />
 			</IconButton>
 		</div>
