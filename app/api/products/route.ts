@@ -33,14 +33,14 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
 	try {
 		await connectMongo();
-		const req = await request.json();
+		const body = await request.json();
 		const imagePath = await base64ToFile({
-			base64: req.image,
+			base64: body.image,
 			path: "products/",
-			name: req.title,
+			name: body.title,
 		});
 		const product = await Product.create({
-			...req,
+			...body,
 			image: imagePath,
 		});
 		return NextResponse.json({ product });
