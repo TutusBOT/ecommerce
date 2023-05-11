@@ -66,6 +66,6 @@ export const useAppStore = create<AppState & AppActions>()(
 		clearCart: () => set(() => ({ cart: [] })),
 		filters: { minPrice: 0, maxPrice: 100000 },
 		setFilters: (filters: { minPrice: number; maxPrice: number }) =>
-			set((state) => ({ filters: filters })),
+			set(() => ({ filters })),
 	}))
 );
