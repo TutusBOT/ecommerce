@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
 	try {
 		await connectMongo();
-		const categories = await Category.find({});
+		const categories = await Category.find({}).lean();
 		return NextResponse.json(categories);
 	} catch (error) {
 		return NextResponse.json({ error });

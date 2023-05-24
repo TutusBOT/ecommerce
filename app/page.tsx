@@ -4,7 +4,7 @@ import { connectMongo } from "@/lib/connectMongo";
 
 const getProducts = async () => {
 	await connectMongo();
-	const products = await ProductModel.find({}).populate("category").exec();
+	const products = await ProductModel.find({}).lean().populate("category");
 	return JSON.parse(JSON.stringify(products));
 };
 

@@ -28,6 +28,7 @@ const getProducts = async ({
 		const products = await ProductModel.find({
 			title: new RegExp(title ?? "", "i"),
 		})
+			.lean()
 			.populate("category")
 			.exec();
 		return JSON.parse(JSON.stringify(products));
