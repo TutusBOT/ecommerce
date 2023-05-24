@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
 					if (!credentials?.password || !credentials?.email)
 						throw new Error("Provide user credentials.");
 					await connectMongo();
-					const user = await User.findOne({ email: credentials?.email });
+					const user = await User.findOne({ email: credentials?.email }).lean();
 					if (!user) throw new Error("User doesn't exist");
 					const parsedUser = userSchema.parse(user);
 					if (await compare(credentials.password, parsedUser.hashedPassword)) {

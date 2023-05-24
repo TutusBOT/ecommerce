@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 const getProduct = async (id: string) => {
 	await connectMongo();
-	const product = await ProductModel.findById(id).populate("category");
+	const product = await ProductModel.findById(id).lean().populate("category");
 	return JSON.parse(JSON.stringify(product));
 };
 

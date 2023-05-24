@@ -22,8 +22,8 @@ export async function GET(request: Request) {
 			title: new RegExp(params.title ?? "", "i"),
 		})
 			.limit(params.limit ? params.limit : 0)
-			.populate("category")
-			.exec();
+			.lean()
+			.populate("category");
 		return NextResponse.json(products);
 	} catch (error) {
 		return NextResponse.json({ error });

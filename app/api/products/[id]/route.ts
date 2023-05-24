@@ -6,7 +6,7 @@ export const getProduct = async (
 	id: string | string[] | undefined
 ): Promise<ProductInterface> => {
 	await connectMongo();
-	return Product.findById(id).populate("category").exec();
+	return Product.findById(id).lean().populate("category").exec();
 };
 
 export async function GET(

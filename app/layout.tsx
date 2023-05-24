@@ -11,7 +11,7 @@ import { authOptions } from "./api/auth/[...nextauth]/route";
 
 const getCategories = async () => {
 	await connectMongo();
-	const categories = await CategoryModel.find({});
+	const categories = await CategoryModel.find({}).lean();
 	return JSON.parse(JSON.stringify(categories));
 };
 

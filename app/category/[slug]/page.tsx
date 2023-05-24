@@ -14,6 +14,7 @@ const getProducts = async ({
 	await connectMongo();
 	const products = await ProductModel.find({})
 		.limit(limit)
+		.lean()
 		.populate("category");
 	const filteredProducts = products.filter(
 		(product) => product.category.slug === category
