@@ -30,7 +30,7 @@ const CartItem = ({ id, image, title, price, count }: CartItemProps) => {
 				<Image src={image} alt={title} width={80} height={80} />
 				<p>{title}</p>
 			</Link>
-			<p>{price}</p>
+			<p>${price * count}</p>
 			<p className="flex items-center gap-2">
 				<IconButton type="button" onClick={handleRemove}>
 					<MdRemoveCircleOutline />
