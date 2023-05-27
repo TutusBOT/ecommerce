@@ -46,10 +46,14 @@ const Product = async ({ params }: any) => {
 							{product.rating?.rate.toString()}
 						</p>
 						<AddToCartButton product={product} />
-						<p className="flex flex-col gap-4 pt-8">
-							<strong className="text-3xl">Product details</strong>{" "}
-							{product.description}
-						</p>
+						<div className="flex flex-col gap-4 pt-8">
+							<strong className="text-3xl">Product details:</strong>{" "}
+							<ul className="list-disc pl-6">
+								{product.description.map((section) => (
+									<li key={section}>{section}</li>
+								))}
+							</ul>
+						</div>
 					</div>
 				</div>
 			</main>
