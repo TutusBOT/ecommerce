@@ -18,7 +18,8 @@ const SearchBar = () => {
 		<div className="flex w-full rounded-lg border border-gray-400">
 			<input
 				type="text"
-				className="bg-transparent pl-2 outline-none"
+				className="bg-transparent pl-2 outline-none sm:w-40 md:w-60"
+				size={10}
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={(e) => {

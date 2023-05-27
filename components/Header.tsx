@@ -11,7 +11,7 @@ interface HeaderProps {
 const Header = ({ categories }: HeaderProps) => (
 	<header className="flex flex-col">
 		<nav className="w-full">
-			<ul className="flex items-center justify-between gap-4 py-2 px-8 text-xl shadow-md">
+			<ul className="flex items-center justify-between gap-2 py-2 px-4 text-xl shadow-md sm:gap-4 sm:px-8">
 				<li>
 					<Link href="/">Home</Link>
 				</li>

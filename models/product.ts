@@ -6,7 +6,7 @@ export const productSchema = z.object({
 	_id: z.string(),
 	title: z.string(),
 	price: z.number(),
-	description: z.string(),
+	description: z.array(z.string()),
 	category: z.instanceof(Object).transform((id) => id.toString()),
 	image: z.string().optional(),
 	rating: z
@@ -31,7 +31,7 @@ const schema = new Schema({
 		required: true,
 	},
 	description: {
-		type: String,
+		type: [String],
 		required: true,
 	},
 	category: {

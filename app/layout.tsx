@@ -28,11 +28,14 @@ export default async function RootLayout({
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</head>
-			<body>
+			<body className="relative min-h-screen">
 				<SessionProvider session={session}>
 					<Header categories={categories} />
 					<Toastify />
 					{children}
+					<footer className="absolute bottom-0 w-screen bg-gray-100 py-2 px-4">
+						Website made by Bartłomiej Tutak
+					</footer>
 				</SessionProvider>
 			</body>
 		</html>

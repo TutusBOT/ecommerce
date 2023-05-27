@@ -41,7 +41,7 @@ const ProductPreview = ({ product }: ProductPreviewProps) => {
 				/>
 				<p>{product.title}</p>
 				<div className="flex items-center justify-between">
-					<p>{product.price}</p>
+					<p>${product.price}</p>
 				</div>
 			</div>
 			<IconButton
