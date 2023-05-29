@@ -11,6 +11,7 @@ interface AppState {
 		minPrice: number;
 		maxPrice: number;
 	};
+	favourites: Product[];
 }
 
 interface AppActions {
@@ -19,6 +20,8 @@ interface AppActions {
 	updateItemQuantity: (productId: string, quantity: number) => void;
 	clearCart: () => void;
 	setFilters: (filters: { minPrice: number; maxPrice: number }) => void;
+	addFavourite: (product: Product) => void;
+	removeFavourite: (product: Product) => void;
 }
 
 export const useAppStore = create<AppState & AppActions>()(
@@ -67,5 +70,14 @@ export const useAppStore = create<AppState & AppActions>()(
 		filters: { minPrice: 0, maxPrice: 100000 },
 		setFilters: (filters: { minPrice: number; maxPrice: number }) =>
 			set(() => ({ filters })),
+		favourites: [],
+		addFavourite: (product: Product) =>
+			set((state) => ({
+				favourites: [...state.favourites, product],
+			})),
+		removeFavourite: (product: Product) =>
+			set((state) => ({
+				favourites: state.favourites.filter((p) => p._id !== product._id),
+			})),
 	}))
 );

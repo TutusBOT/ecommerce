@@ -1,6 +1,6 @@
 "use client";
 
-import ProductPreview from "@/components/ProductPreview";
+import ProductPreview from "@/components/ProductPreview/ProductPreview";
 import { Product } from "@/models/product";
 import { useAppStore } from "@/store";
 

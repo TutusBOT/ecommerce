@@ -6,7 +6,8 @@ import Image from "next/image";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import IconButton from "./IconButton";
+import { AiFillHeart } from "react-icons/ai";
+import IconButton from "../IconButton";
 
 interface ProductPreviewProps {
 	product: Product;
@@ -14,11 +15,27 @@ interface ProductPreviewProps {
 
 const ProductPreview = ({ product }: ProductPreviewProps) => {
 	const addToCart = useAppStore((state) => state.addToCart);
+	const addFavourite = useAppStore((state) => state.addFavourite);
+	const removeFavourite = useAppStore((state) => state.removeFavourite);
+	const favourites = useAppStore((state) => state.favourites);
+	const isFavourite = favourites.find(
+		(favourite) => favourite._id === product._id
+	);
+	const { push } = useRouter();
+
 	const handleAddToCart = () => {
 		addToCart(product);
 		toast.success(`Added ${product.title} to cart`);
 	};
-	const { push } = useRouter();
+
+	const handleFavourite = () => {
+		if (isFavourite) {
+			removeFavourite(product);
+			return toast.info(`Removed ${product.title} from favourites.`);
+		}
+		addFavourite(product);
+		return toast.success(`Added ${product.title} to favourites.`);
+	};
 
 	return (
 		<div className="group relative w-full rounded-lg border border-transparent transition-colors hover:border-gray-200 hover:shadow-lg">
@@ -46,8 +63,17 @@ const ProductPreview = ({ product }: ProductPreviewProps) => {
 			</div>
 			<IconButton
 				type="button"
+				onClick={handleFavourite}
+				className={`absolute top-2 right-2 z-10 transition-opacity group-hover:opacity-100 ${
+					isFavourite ? "opacity-100" : "opacity-100 sm:opacity-0"
+				}`}
+			>
+				<AiFillHeart fill={isFavourite ? "red" : "black"} />
+			</IconButton>
+			<IconButton
+				type="button"
 				onClick={handleAddToCart}
-				className="absolute bottom-2 right-2 z-10 opacity-0 transition-opacity group-hover:opacity-100"
+				className="absolute bottom-2 right-2 z-10 opacity-100 transition-opacity group-hover:opacity-100 sm:opacity-0"
 			>
 				<MdAddShoppingCart />
 			</IconButton>

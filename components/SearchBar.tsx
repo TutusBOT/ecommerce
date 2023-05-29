@@ -11,7 +11,6 @@ const SearchBar = () => {
 
 	const handleSearch = () => {
 		push(`/search?title=${query}`);
-		setQuery("");
 	};
 
 	return (
