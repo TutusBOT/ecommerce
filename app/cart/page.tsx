@@ -1,10 +1,10 @@
 "use client";
 
-import CartItem from "@/components/CartItem";
+import CartItem from "@/app/cart/CartItem";
 import IconButton from "@/components/IconButton";
 import { useAppStore } from "@/store";
 import Link from "next/link";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdShoppingCart } from "react-icons/md";
 
 const Cart = () => {
 	const cart = useAppStore((state) => state.cart);
@@ -12,12 +12,14 @@ const Cart = () => {
 	return (
 		<>
 			<div className="flex items-center justify-between px-4 pt-4">
-				<h2 className="text-2xl">Cart</h2>
+				<h2 className="flex items-center gap-2 text-2xl">
+					Cart <MdShoppingCart />
+				</h2>
 				<IconButton onClick={() => clearCart()} type="button">
 					Clear cart <MdDeleteOutline />
 				</IconButton>
 			</div>
-			<div className="flex px-4 pt-4">
+			<div className="flex px-4 pt-4 sm:px-16">
 				{cart.length ? (
 					cart.map(({ item, count }) => (
 						<CartItem
