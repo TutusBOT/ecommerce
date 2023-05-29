@@ -1,4 +1,4 @@
-import ProductPreview from "@/components/ProductPreview";
+import ProductPreview from "@/components/ProductPreview/ProductPreview";
 import { connectMongo } from "@/lib/connectMongo";
 import ProductModel, { Product } from "@/models/product";
 
