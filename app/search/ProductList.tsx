@@ -1,6 +1,7 @@
 "use client";
 
 import ProductPreview from "@/components/ProductPreview/ProductPreview";
+import useStore from "@/hooks/useStore";
 import { Product } from "@/models/product";
 import { useAppStore } from "@/store";
 
@@ -9,11 +10,11 @@ interface ProductListProps {
 }
 
 const ProductList = ({ products }: ProductListProps) => {
-	const filters = useAppStore((state) => state.filters);
-
+	const filters = useStore(useAppStore, (state) => state.filters);
 	const filteredProducts = products.filter(
 		(product) =>
-			product.price > filters.minPrice && product.price < filters.maxPrice
+			!filters ||
+			(product.price > filters?.minPrice && product.price < filters?.maxPrice)
 	);
 	return (
 		<div className="flex items-center justify-center">

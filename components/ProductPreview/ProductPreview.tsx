@@ -7,6 +7,7 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { AiFillHeart } from "react-icons/ai";
+import useStore from "@/hooks/useStore";
 import IconButton from "../IconButton";
 
 interface ProductPreviewProps {
@@ -14,11 +15,11 @@ interface ProductPreviewProps {
 }
 
 const ProductPreview = ({ product }: ProductPreviewProps) => {
-	const addToCart = useAppStore((state) => state.addToCart);
-	const addFavourite = useAppStore((state) => state.addFavourite);
-	const removeFavourite = useAppStore((state) => state.removeFavourite);
-	const favourites = useAppStore((state) => state.favourites);
-	const isFavourite = favourites.find(
+	const { addToCart, addFavourite, removeFavourite } = useAppStore(
+		(state) => state
+	);
+	const favourites = useStore(useAppStore, (state) => state.favourites);
+	const isFavourite = favourites?.find(
 		(favourite) => favourite._id === product._id
 	);
 	const { push } = useRouter();

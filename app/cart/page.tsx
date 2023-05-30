@@ -2,12 +2,13 @@
 
 import CartItem from "@/app/cart/CartItem";
 import IconButton from "@/components/IconButton";
+import useStore from "@/hooks/useStore";
 import { useAppStore } from "@/store";
 import Link from "next/link";
 import { MdDeleteOutline, MdShoppingCart } from "react-icons/md";
 
 const Cart = () => {
-	const cart = useAppStore((state) => state.cart);
+	const cart = useStore(useAppStore, (state) => state.cart);
 	const clearCart = useAppStore((state) => state.clearCart);
 	return (
 		<>
@@ -20,7 +21,7 @@ const Cart = () => {
 				</IconButton>
 			</div>
 			<div className="flex px-4 pt-4 sm:px-16">
-				{cart.length ? (
+				{cart?.length ? (
 					cart.map(({ item, count }) => (
 						<CartItem
 							id={item._id}
