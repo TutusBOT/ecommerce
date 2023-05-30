@@ -1,6 +1,7 @@
 "use client";
 
 import useDebounce from "@/hooks/useDebounce";
+import useStore from "@/hooks/useStore";
 import { useAppStore } from "@/store";
 import { useEffect, useState } from "react";
 
@@ -8,7 +9,7 @@ const Filters = () => {
 	const [minPrice, setMinPrice] = useState("");
 	const [maxPrice, setMaxPrice] = useState("");
 	const setFilters = useAppStore((state) => state.setFilters);
-	const filters = useAppStore((state) => state.filters);
+	const filters = useStore(useAppStore, (state) => state.filters);
 	const debouncedFilters = useDebounce(
 		{
 			minPrice: minPrice ? parseInt(minPrice, 10) : 0,
