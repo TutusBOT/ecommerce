@@ -1,6 +1,7 @@
 import z from "zod";
 import ProductModel from "@/models/product";
 import { connectMongo } from "@/lib/connectMongo";
+import CategoryModel from "@/models/category";
 import Filters from "./Filters";
 import ProductList from "./ProductList";
 
@@ -17,12 +18,7 @@ const searchParamsSchema = z.object({
 	}, z.number().positive().optional()),
 });
 
-const getProducts = async ({
-	title,
-	category,
-	minPrice,
-	maxPrice,
-}: z.infer<typeof searchParamsSchema>) => {
+const getProducts = async ({ title }: z.infer<typeof searchParamsSchema>) => {
 	try {
 		await connectMongo();
 		const products = await ProductModel.find({
@@ -33,9 +29,15 @@ const getProducts = async ({
 			.exec();
 		return JSON.parse(JSON.stringify(products));
 	} catch (error) {
-		console.error(error, category, minPrice, maxPrice);
+		console.error(error);
 		return [];
 	}
+};
+
+const getCategories = async () => {
+	await connectMongo();
+	const categories = await CategoryModel.find({}).lean();
+	return JSON.parse(JSON.stringify(categories));
 };
 
 const Page = async ({
@@ -43,6 +45,7 @@ const Page = async ({
 }: {
 	searchParams: { [key: string]: string | string[] | undefined };
 }) => {
+	const categories = await getCategories();
 	let products;
 	try {
 		const searchFilters = searchParamsSchema.parse(searchParams);
@@ -50,9 +53,10 @@ const Page = async ({
 	} catch (error) {
 		products = await getProducts({ title: "" });
 	}
+
 	return (
-		<div className="flex flex-col sm:flex-row">
-			<Filters />
+		<div className="flex flex-col gap-4 pb-12 pt-4 md:grid md:grid-cols-3 md:px-16">
+			<Filters categories={categories} />
 			<ProductList products={products} />
 		</div>
 	);

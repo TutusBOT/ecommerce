@@ -17,7 +17,7 @@ export default async function Home() {
 	if (!products) return "Error while fetching products";
 
 	return (
-		<main className="flex flex-col items-center justify-center px-4">
+		<main className="flex flex-col items-center justify-center px-4 pb-12">
 			<FeaturedProduct product={products[1]} />
 			<h2 className="mt-8 text-2xl">Recommended</h2>
 			<div className="grid w-full max-w-screen-2xl grid-cols-2 items-center justify-items-center gap-4 py-4 sm:grid-cols-3 lg:grid-cols-4">
