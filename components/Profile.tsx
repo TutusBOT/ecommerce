@@ -44,7 +44,7 @@ const Profile = () => {
 			</div>
 			<button
 				type="button"
-				className="absolute left-1/2 hidden w-20 -translate-x-1/2 rounded-lg border-[1px] border-gray-300 bg-white p-2 text-center text-sm transition-colors hover:bg-gray-100 group-hover:block"
+				className="absolute left-1/2 z-20 hidden w-20 -translate-x-1/2 rounded-lg border-[1px] border-gray-300 bg-white p-2 text-center text-sm transition-colors hover:bg-gray-100 group-hover:block"
 				onClick={handleButtonClick}
 			>
 				{session?.user ? "Sign out" : "Sign in"}

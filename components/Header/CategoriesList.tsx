@@ -16,6 +16,7 @@ const CategoriesList = ({ categories }: { categories: Category[] }) => {
 				className="my-2 block sm:hidden"
 				variant="outlined"
 				onClick={() => setShow(!show)}
+				onBlur={() => setShow(false)}
 			>
 				Categories
 			</Button>
