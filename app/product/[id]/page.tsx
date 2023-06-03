@@ -16,8 +16,17 @@ const Product = async ({ params }: any) => {
 	const product: ProductInterface = await getProduct(params.id);
 	if (!product) return <>Product not found</>;
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<main className="max-w-7x flex flex-col items-center pt-8 sm:pt-16">
+		<div className="flex flex-col items-center justify-center pb-12">
+			<main className="max-w-7x flex flex-col items-center px-2 pt-8 sm:pt-16">
+				<div className="block w-full text-lg sm:hidden">
+					Ecommerce{" > "}
+					<Link
+						className="hover:underline"
+						href={`category/${product.category.slug}`}
+					>
+						{product.category.name}
+					</Link>
+				</div>
 				<div className="grid w-full grid-cols-1 grid-rows-2 sm:grid-cols-3 sm:grid-rows-1 2xl:w-[1536px]">
 					<div className="relative w-full">
 						<Image
@@ -28,7 +37,7 @@ const Product = async ({ params }: any) => {
 						/>
 					</div>
 					<div className="flex w-full flex-col gap-4 sm:col-start-2 sm:col-end-4">
-						<div className="w-full text-lg">
+						<div className="hidden w-full text-lg sm:block">
 							Ecommerce{" > "}
 							<Link
 								className="hover:underline"

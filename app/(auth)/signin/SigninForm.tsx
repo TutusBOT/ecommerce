@@ -18,25 +18,23 @@ const SigninForm = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-6 rounded-xl border-[1px] border-gray-300 p-8 text-xl shadow-xl">
-			<h2 className="mb-4 text-3xl">Sign in</h2>
+		<div className="flex flex-col gap-6 rounded-xl border-[1px] border-gray-300 p-4 text-lg shadow-xl sm:p-8 sm:text-xl">
+			<h2 className="mb-4 text-xl sm:text-3xl">Sign in</h2>
 
 			<input
 				type="email"
 				value={email}
-				className="rounded-xl border-[1px] border-gray-300 p-2"
+				className="rounded-xl border-[1px] border-gray-300 p-2 md:w-80"
 				onChange={(e) => setEmail(e.target.value)}
-				size={40}
 			/>
 			<input
 				type="password"
 				value={password}
-				className="rounded-xl border-[1px] border-gray-300 p-2"
+				className="rounded-xl border-[1px] border-gray-300 p-2 md:w-80"
 				onChange={(e) => setPassword(e.target.value)}
 				onKeyDown={(e) => {
 					if (e.key === "Enter") handleSubmit();
 				}}
-				size={40}
 			/>
 			<Button type="button" variant="filled" onClick={handleSubmit}>
 				Sign in

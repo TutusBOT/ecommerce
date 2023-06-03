@@ -44,6 +44,7 @@ const ProductList = ({ products }: ProductListProps) => {
 						: "rounded-xl   border-gray-300"
 				}`}
 				onClick={() => setShowSorting(!showSorting)}
+				onBlur={() => setShowSorting(false)}
 			>
 				<div className="absolute -top-3 bg-white text-sm">Sorting</div>
 				{sorting === "featured" && "Featured"}

@@ -26,21 +26,19 @@ const RegisterForm = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-6 rounded-xl border-[1px] border-gray-300 p-8 text-xl shadow-xl">
-			<h2 className="mb-4 text-3xl">Sign up</h2>
+		<div className="flex flex-col gap-6 rounded-xl border-[1px] border-gray-300 p-4 text-lg shadow-xl sm:p-8 sm:text-xl">
+			<h2 className="mb-4 text-xl md:text-3xl">Sign up</h2>
 			<input
 				type="email"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
-				className="rounded-xl border-[1px] border-gray-300 p-2"
-				size={40}
+				className="rounded-xl border-[1px] border-gray-300 p-2 md:w-80"
 			/>
 			<input
 				type="password"
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
-				className="rounded-xl border-[1px] border-gray-300 p-2"
-				size={40}
+				className="rounded-xl border-[1px] border-gray-300 p-2 md:w-80"
 			/>
 			<Button type="button" onClick={handleSubmit} variant="filled">
 				Sign up
