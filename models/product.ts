@@ -9,6 +9,7 @@ export const productSchema = z.object({
 	description: z.array(z.string()),
 	category: z.instanceof(Object).transform((id) => id.toString()),
 	image: z.string().optional(),
+	stripeId: z.string(),
 	rating: z
 		.object({
 			rate: z.number(),
@@ -40,6 +41,7 @@ const schema = new Schema({
 		required: true,
 	},
 	image: String,
+	stripeId: String,
 	rating: {
 		rate: Number,
 		count: Number,
