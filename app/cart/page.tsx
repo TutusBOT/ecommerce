@@ -18,9 +18,10 @@ const Cart = () => {
 		const {
 			data: { id },
 		} = await axios.post("/api/checkout_sessions", {
-			items: cart?.map(({ item, count }) => {
-				return { price: item.stripeId, quantity: count };
-			}),
+			items: cart?.map(({ item, count }) => ({
+				price: item.stripeId,
+				quantity: count,
+			})),
 		});
 		const stripe = await getStripe();
 		await stripe?.redirectToCheckout({ sessionId: id });
